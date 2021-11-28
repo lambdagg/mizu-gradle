@@ -22,6 +22,8 @@ class MizuPlugin: Plugin<Project> {
             // Adds the libraries of mizu if requested
             if(extension.common.isNotEmpty())
                 project.dependsOn("wtf.mizu", "common", extension.common)
+            if(extension.common.isNotEmpty())
+                project.dependsOn("wtf.mizu", "animations", extension.animations)
             if(extension.events.isNotEmpty()) {
                 project.dependsOn("wtf.mizu", "events-api", extension.events)
                 project.dependsOn("wtf.mizu", "events-${extension.eventsImpl.id}", extension.events)

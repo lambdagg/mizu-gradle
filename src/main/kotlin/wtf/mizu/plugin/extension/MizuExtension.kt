@@ -5,7 +5,8 @@ import org.gradle.api.provider.Property
 open class MizuExtension(
     internal var common: String = "",
     internal var events: String = "",
-    internal var eventsImpl: EventsImplementation = EventsImplementation.SYNC
+    internal var eventsImpl: EventsImplementation = EventsImplementation.SYNC,
+    internal var animations: String = ""
 ) {
     fun common() = apply { common = "1.0.+" }
     fun common(version: String) = apply { common = version }
@@ -18,6 +19,9 @@ open class MizuExtension(
         events = version
         eventsImpl = implementation
     }
+
+    fun animations() = apply { animations = "1.0.+" }
+    fun animations(version: String) = apply { animations = version }
 }
 
 enum class EventsImplementation(val id: String) {

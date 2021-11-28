@@ -4,7 +4,7 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import java.net.URI
 
-inline fun Project.mizuPublishMavenRepository() {
+fun Project.mizuPublishMavenRepository() {
     extensions.configure(PublishingExtension::class.java) { publishing ->
         publishing.repositories { repositories ->
             repositories.maven { maven ->
