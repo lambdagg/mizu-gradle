@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id("org.jetbrains.kotlin.jvm") version Version.Plugin.KOTLIN
     id("org.ajoberstar.grgit") version Version.Plugin.GRGIT
@@ -19,6 +21,10 @@ gradlePlugin {
             implementationClass = "wtf.mizu.plugin.MizuPlugin"
         }
     }
+}
+
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions.jvmTarget = "16"
 }
 
 publishing {
