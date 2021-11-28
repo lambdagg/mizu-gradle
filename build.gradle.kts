@@ -6,7 +6,7 @@ plugins {
 }
 
 group   = Project.GROUP
-version = Project.VERSION.replace("x", grgit.log().size.toString())
+version = Project.VERSION.replace("x", grgit.log().size.toString()) + if (grgit.status().isClean) "" else "-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -21,16 +21,13 @@ gradlePlugin {
     }
 }
 
-val mizuUser: String by properties
-val mizuToken: String by properties
-
 publishing {
     repositories {
         maven("https://maven.mizu.wtf/releases") {
             name = "mizu"
             credentials {
-                username = mizuUser
-                password = mizuToken
+                username = project.properties["MIZU_USERNAME"] as String
+                password = project.properties["MIZU_TOKEN"] as String
             }
         }
     }
