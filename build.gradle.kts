@@ -6,7 +6,7 @@ plugins {
 }
 
 group   = Project.GROUP
-version = Project.VERSION.replace("x", grgit.log().size.toString()) + if (grgit.status().isClean) "" else "-SNAPSHOT"
+version = Project.VERSION.replace("x", grgit.log().size.toString())
 
 repositories {
     mavenCentral()
