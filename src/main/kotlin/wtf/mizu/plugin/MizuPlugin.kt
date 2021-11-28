@@ -28,15 +28,12 @@ class MizuPlugin: Plugin<Project> {
         project.extensions.configure(PublishingExtension::class.java) { publishing ->
             publishing.repositories { repositories ->
                 repositories.maven { maven ->
-                    maven.url = URI.create("https://my-publishing-repo.com")
+                    maven.name = "Mizu Release"
+                    maven.url = URI.create("https://maven.mizu.wtf/releases")
                 }
-            }
-            publishing.publications { publications ->
-                publications.create(
-                    "mavenJava",
-                    MavenPublication::class.java
-                ) {
-                        mavenJava -> mavenJava.artifact(project.tasks.named("bootJar"))
+                repositories.maven { maven ->
+                    maven.name = "Mizu Snapshot"
+                    maven.url = URI.create("https://maven.mizu.wtf/releases")
                 }
             }
         }
