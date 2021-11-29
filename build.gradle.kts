@@ -28,6 +28,7 @@ tasks.withType<KotlinCompile>().all {
 }
 
 publishing {
+    println(version)
     repositories {
         maven("https://maven.mizu.wtf/releases") {
             name = "mizu"

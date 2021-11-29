@@ -12,7 +12,8 @@ fun Project.repository(name: String, url: String) {
     }
 }
 
-fun Project.dependsOn(group: String, id: String, version: String, implementation: Boolean = false) {
+fun Project.dependsOn(group: String, id: String, version: String, implementation: Boolean = true) {
+    logger.info(id)
     val domainObjectProvider = this.configurations.register(id) { c -> c
         .setVisible(true)
         .defaultDependencies { deps ->

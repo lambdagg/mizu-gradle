@@ -1,4 +1,4 @@
-rootProject.name = "mizu-gradle"
+rootProject.name = "gradle-plugin"
 pluginManagement {
     repositories {
         gradlePluginPortal()
