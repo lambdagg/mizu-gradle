@@ -35,7 +35,7 @@ mizu {
 }
 ```
 
-You can pass a value to the functions to configure the version of the library:
+You can pass a value to the functions to configure the versions of each library:
 
 ```kotlin
 mizu {
