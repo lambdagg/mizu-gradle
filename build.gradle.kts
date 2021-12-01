@@ -32,9 +32,11 @@ publishing {
     repositories {
         maven("https://maven.mizu.wtf/releases") {
             name = "mizu"
-            credentials {
-                username = project.properties["MIZU_USERNAME"] as String
-                password = project.properties["MIZU_TOKEN"] as String
+            if(properties.containsKey("MIZU_USERNAME") && properties.containsKey("MIZU_TOKEN")) {
+                credentials {
+                    username = project.properties["MIZU_USERNAME"] as String
+                    password = project.properties["MIZU_TOKEN"] as String
+                }
             }
         }
     }
