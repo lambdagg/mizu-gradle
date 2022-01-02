@@ -7,7 +7,7 @@ import java.net.URI
 fun Project.mizuPublishMavenRepository() {
     extensions.configure(PublishingExtension::class.java) { publishing ->
         // The person cannot publish stuff.
-        if(!project.properties.containsKey("MIZU_USERNAME") || !project.properties.containsKey("MIZU_PASSWORD"))
+        if(!project.properties.containsKey("MIZU_USERNAME") || !project.properties.containsKey("MIZU_TOKEN"))
             return@configure
 
         publishing.repositories { repositories ->
