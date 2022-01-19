@@ -22,6 +22,18 @@ fun Project.mizuPublishMavenRepository() {
             repositories.maven { maven ->
                 maven.name = "mizu-snapshots"
                 maven.url = URI.create("https://maven.mizu.wtf/snapshots")
+                maven.credentials {
+                    it.username = project.properties["MIZU_USERNAME"] as String
+                    it.password = project.properties["MIZU_TOKEN"] as String
+                }
+            }
+            repositories.maven { maven ->
+                maven.name = "mizu-private"
+                maven.url = URI.create("https://maven.mizu.wtf/private")
+                maven.credentials {
+                    it.username = project.properties["MIZU_USERNAME"] as String
+                    it.password = project.properties["MIZU_TOKEN"] as String
+                }
             }
         }
     }

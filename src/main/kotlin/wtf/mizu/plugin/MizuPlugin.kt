@@ -19,6 +19,15 @@ class MizuPlugin: Plugin<Project> {
             project.repository("mizu-releases", "https://maven.mizu.wtf/releases")
             project.repository("mizu-snapshots", "https://maven.mizu.wtf/snapshots")
 
+            if(project.properties.containsKey("MIZU_USERNAME") && project.properties.containsKey("MIZU_TOKEN")) {
+                val username = project.properties["MIZU_USERNAME"] as String
+                val token = project.properties["MIZU_TOKEN"] as String
+                project.repository(
+                    "mizu-releases", "https://maven.mizu.wtf/private",
+                    username, token
+                )
+            }
+
             // Adds the libraries of mizu if requested
             if(extension.common.isNotEmpty())
                 project.dependsOn("wtf.mizu", "common", extension.common)
@@ -28,6 +37,8 @@ class MizuPlugin: Plugin<Project> {
                 project.dependsOn("wtf.mizu", "events-api", extension.events)
                 project.dependsOn("wtf.mizu", "events-${extension.eventsImpl.id}", extension.events)
             }
+            if(extension.settings.isNotEmpty())
+                project.dependsOn("wtf.mizu", "settings", extension.settings)
 
             // Adds the repositories of mizu for maven publish if its available.
             project.mizuPublishMavenRepository()

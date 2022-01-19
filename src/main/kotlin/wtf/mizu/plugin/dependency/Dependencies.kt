@@ -12,6 +12,17 @@ fun Project.repository(name: String, url: String) {
     }
 }
 
+fun Project.repository(name: String, url: String, user: String, password: String) {
+    repositories.maven { r ->
+        r.name = name
+        r.url  = URI(url)
+        r.credentials {
+            it.username = user
+            it.password = password
+        }
+    }
+}
+
 fun Project.dependsOn(group: String, id: String, version: String, implementation: Boolean = true) {
     logger.info(id)
     val domainObjectProvider = this.configurations.register(id) { c -> c
