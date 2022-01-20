@@ -25,16 +25,15 @@ fun Project.repository(name: String, url: String, user: String, password: String
 
 fun Project.dependsOn(group: String, id: String, version: String, implementation: Boolean = true) {
     logger.info(id)
-    val domainObjectProvider = this.configurations.register(id) { c -> c
-        .setVisible(true)
-        .defaultDependencies { deps ->
+    val domainObjectProvider = this.configurations.register(id) {
+        it.setVisible(true).defaultDependencies { deps ->
             deps.add(dependencies.create("$group:$id:$version"))
         }
     }
 
-    project.plugins.withType(JavaLibraryPlugin::class.java) { pl ->
+    project.plugins.withType(JavaLibraryPlugin::class.java) { _ ->
         // Adds the library as a dependency
-        if(implementation) {
+        if (implementation) {
             project.configurations.named(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME)
                 .configure { c -> c.extendsFrom(domainObjectProvider.get()) }
         } else {

@@ -47,4 +47,4 @@ mizu {
 ## Maintainers:
 
 - [Shyrogan](https://github.com/Shyrogan)
-- [xTrM](https://github.com/xTrM-EN)
+- [xtrm](https://github.com/xtrm-en)
