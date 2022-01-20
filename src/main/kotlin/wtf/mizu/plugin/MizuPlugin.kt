@@ -22,7 +22,7 @@ class MizuPlugin: Plugin<Project> {
         val extension = target.extensions.create(NAME, MizuExtension::class.java)
 
         target.afterEvaluate { project ->
-            // Adds the repositories of mizu
+            // Adds Mizu's repositories
             project.repository("$NAME-releases", REPO_RELEASES_URL)
             project.repository("$NAME-snapshots", REPO_SNAPSHOTS_URL)
 
@@ -35,7 +35,7 @@ class MizuPlugin: Plugin<Project> {
                 )
             }
 
-            // Adds the libraries of mizu if requested
+            // Adds Mizu's required libraries
             if(extension.common.isNotEmpty())
                 project.dependsOn(GROUP_ID, "common", extension.common)
             if(extension.animations.isNotEmpty())
@@ -47,7 +47,7 @@ class MizuPlugin: Plugin<Project> {
             if(extension.settings.isNotEmpty())
                 project.dependsOn(GROUP_ID, "settings", extension.settings)
 
-            // Adds the repositories of mizu for maven publish if it's available.
+            // If maven-publish is available, add Mizu's repositories
             project.mizuPublishMavenRepository()
         }
     }
