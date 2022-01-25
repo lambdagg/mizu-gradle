@@ -5,7 +5,9 @@ open class MizuExtension(
     internal var events: String = "",
     internal var eventsImpl: EventsImplementation = EventsImplementation.SYNC,
     internal var animations: String = "",
-    internal var settings: String = ""
+    internal var settings: String = "",
+    internal var clientApi: String = "",
+    internal var loader: String = ""
 ) {
     fun common(version: String = "1.0.+") = apply { common = version }
 
@@ -20,6 +22,10 @@ open class MizuExtension(
     fun animations(version: String = "1.0.+") = apply { animations = version }
 
     fun settings(version: String = "1.0.+") = apply { settings = version }
+
+    fun clientApi(version: String = "1.0.+") = apply { clientApi = version }
+
+    fun loader(version: String = "1.0.+") = apply { loader = version }
 }
 
 enum class EventsImplementation(val id: String) {
