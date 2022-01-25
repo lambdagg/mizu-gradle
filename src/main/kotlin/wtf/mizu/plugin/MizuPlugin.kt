@@ -30,7 +30,7 @@ class MizuPlugin: Plugin<Project> {
                 val username = project.properties["MIZU_USERNAME"] as String
                 val token = project.properties["MIZU_TOKEN"] as String
                 project.repository(
-                    "mizu-releases", REPO_PRIVATE_URL,
+                    "$NAME-private", REPO_PRIVATE_URL,
                     username, token
                 )
             }
@@ -46,6 +46,10 @@ class MizuPlugin: Plugin<Project> {
             }
             if(extension.settings.isNotEmpty())
                 project.dependsOn(GROUP_ID, "settings", extension.settings)
+            if(extension.clientApi.isNotEmpty())
+                project.dependsOn(GROUP_ID, "client-api", extension.clientApi)
+            if(extension.loader.isNotEmpty())
+                project.dependsOn(GROUP_ID, "loader", extension.loader)
 
             // If maven-publish is available, add Mizu's repositories
             project.mizuPublishMavenRepository()
