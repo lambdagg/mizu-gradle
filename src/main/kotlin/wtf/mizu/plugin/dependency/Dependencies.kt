@@ -23,7 +23,12 @@ fun Project.repository(name: String, url: String, user: String, password: String
     }
 }
 
-fun Project.dependsOn(group: String, id: String, version: String, implementation: Boolean = true) {
+fun Project.dependsOn(
+    group: String,
+    id: String,
+    version: String,
+    configuration: String = JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME
+) {
     logger.info(id)
     val domainObjectProvider = this.configurations.register(id) {
         it.setVisible(true).defaultDependencies { deps ->
@@ -33,12 +38,7 @@ fun Project.dependsOn(group: String, id: String, version: String, implementation
 
     project.plugins.withType(JavaLibraryPlugin::class.java) { _ ->
         // Adds the library as a dependency
-        if (implementation) {
-            project.configurations.named(JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME)
-                .configure { c -> c.extendsFrom(domainObjectProvider.get()) }
-        } else {
-            project.configurations.named(JavaPlugin.COMPILE_ONLY_CONFIGURATION_NAME)
-                .configure { c -> c.extendsFrom(domainObjectProvider.get()) }
-        }
+        project.configurations.named(configuration)
+            .configure { c -> c.extendsFrom(domainObjectProvider.get()) }
     }
 }
