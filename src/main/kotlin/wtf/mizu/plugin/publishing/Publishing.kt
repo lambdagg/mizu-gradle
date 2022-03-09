@@ -11,29 +11,23 @@ fun Project.mizuPublishMavenRepository() {
         if (!project.properties.containsKey("MIZU_USERNAME") || !project.properties.containsKey("MIZU_TOKEN"))
             return@configure
 
+        // Repository map (name -> url)
+        val repos = mapOf(
+            "release" to MizuPlugin.REPO_RELEASES_URL,
+            "snapshots" to MizuPlugin.REPO_SNAPSHOTS_URL,
+            "private" to MizuPlugin.REPO_PRIVATE_URL,
+        )
+
+        // Register repositories
         publishing.repositories { repositories ->
-            repositories.maven { maven ->
-                maven.name = "${MizuPlugin.NAME}-releases"
-                maven.url = URI.create(MizuPlugin.REPO_RELEASES_URL)
-                maven.credentials {
-                    it.username = project.properties["MIZU_USERNAME"] as String
-                    it.password = project.properties["MIZU_TOKEN"] as String
-                }
-            }
-            repositories.maven { maven ->
-                maven.name = "${MizuPlugin.NAME}-snapshots"
-                maven.url = URI.create(MizuPlugin.REPO_SNAPSHOTS_URL)
-                maven.credentials {
-                    it.username = project.properties["MIZU_USERNAME"] as String
-                    it.password = project.properties["MIZU_TOKEN"] as String
-                }
-            }
-            repositories.maven { maven ->
-                maven.name = "${MizuPlugin.NAME}-private"
-                maven.url = URI.create(MizuPlugin.REPO_PRIVATE_URL)
-                maven.credentials {
-                    it.username = project.properties["MIZU_USERNAME"] as String
-                    it.password = project.properties["MIZU_TOKEN"] as String
+            repos.forEach { repo ->
+                repositories.maven { maven ->
+                    maven.name = "${MizuPlugin.NAME}-${repo.key}"
+                    maven.url = URI.create(repo.value)
+                    maven.credentials {
+                        it.username = project.properties["MIZU_USERNAME"] as String
+                        it.password = project.properties["MIZU_TOKEN"] as String
+                    }
                 }
             }
         }
