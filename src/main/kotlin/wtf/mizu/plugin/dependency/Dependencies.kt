@@ -35,7 +35,6 @@ fun Project.dependsOn(
     version: String,
     configuration: String = JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME
 ) {
-    // logger.info(id)
     val domainObjectProvider = this.configurations.register(id) {
         it.setVisible(true).defaultDependencies { deps ->
             deps.add(dependencies.create("$group:$id:$version"))
