@@ -1,4 +1,4 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate")
 
 package wtf.mizu.plugin.extension
 
@@ -13,28 +13,28 @@ open class MizuExtension(
     internal var clientApi: String = "",
     internal var loader: String = ""
 ) {
-    fun common(commonVersion: String = BASE_VERSION) =
-        this.apply { this.common = commonVersion }
+    fun common(version: String = BASE_VERSION) =
+        this.apply { this.common = version }
 
     fun events(
-        eventsImplementation: EventsImplementation = EventsImplementation.SYNC,
-        eventsVersion: String = BASE_VERSION
+        implementation: EventsImplementation = EventsImplementation.SYNC,
+        version: String = BASE_VERSION
     ) = this.apply {
-        this.eventsImpl = eventsImplementation
-        this.events = eventsVersion
+        this.eventsImpl = implementation
+        this.events = version
     }
 
-    fun animations(animationsVersion: String = BASE_VERSION) =
-        this.apply { this.animations = animationsVersion }
+    fun animations(version: String = BASE_VERSION) =
+        this.apply { this.animations = version }
 
-    fun settings(settingsVersion: String = BASE_VERSION) =
-        this.apply { this.settings = settingsVersion }
+    fun settings(version: String = BASE_VERSION) =
+        this.apply { this.settings = version }
 
-    fun clientApi(clientApiVersion: String = BASE_VERSION) =
-        this.apply { this.clientApi = clientApiVersion }
+    fun clientApi(version: String = BASE_VERSION) =
+        this.apply { this.clientApi = version }
 
-    fun loader(loaderVersion: String = BASE_VERSION) =
-        this.apply { this.loader = loaderVersion }
+    fun loader(version: String = BASE_VERSION) =
+        this.apply { this.loader = version }
 }
 
 enum class EventsImplementation(val id: String) {
