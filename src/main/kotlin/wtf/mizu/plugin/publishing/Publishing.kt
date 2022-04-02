@@ -7,9 +7,11 @@ import java.net.URI
 
 fun Project.mizuPublishMavenRepository() {
     extensions.configure(PublishingExtension::class.java) { publishing ->
-        // The user cannot publish
-        if (!project.properties.containsKey("MIZU_USERNAME") || !project.properties.containsKey("MIZU_TOKEN"))
-            return@configure
+        val mizuUsername = project.properties["MIZU_USERNAME"] as? String
+            ?: return@configure
+
+        val mizuToken = project.properties["MIZU_TOKEN"] as? String
+            ?: return@configure
 
         // Repository map (name -> url)
         val repos = mapOf(
@@ -25,8 +27,8 @@ fun Project.mizuPublishMavenRepository() {
                     maven.name = "${MizuPlugin.NAME}-${repo.key}"
                     maven.url = URI.create(repo.value)
                     maven.credentials {
-                        it.username = project.properties["MIZU_USERNAME"] as String
-                        it.password = project.properties["MIZU_TOKEN"] as String
+                        it.username = mizuUsername
+                        it.password = mizuToken
                     }
                 }
             }

@@ -1,4 +1,8 @@
+@file:Suppress("unused")
+
 package wtf.mizu.plugin.extension
+
+const val BASE_VERSION = "1.0.+"
 
 open class MizuExtension(
     internal var common: String = "",
@@ -9,23 +13,28 @@ open class MizuExtension(
     internal var clientApi: String = "",
     internal var loader: String = ""
 ) {
-    fun common(version: String = "1.0.+") = apply { common = version }
+    fun common(commonVersion: String = BASE_VERSION) =
+        this.apply { this.common = commonVersion }
 
     fun events(
-        implementation: EventsImplementation = EventsImplementation.SYNC,
-        version: String = "1.0.+"
-    ) = apply {
-        events = version
-        eventsImpl = implementation
+        eventsImplementation: EventsImplementation = EventsImplementation.SYNC,
+        eventsVersion: String = BASE_VERSION
+    ) = this.apply {
+        this.eventsImpl = eventsImplementation
+        this.events = eventsVersion
     }
 
-    fun animations(version: String = "1.0.+") = apply { animations = version }
+    fun animations(animationsVersion: String = BASE_VERSION) =
+        this.apply { this.animations = animationsVersion }
 
-    fun settings(version: String = "1.0.+") = apply { settings = version }
+    fun settings(settingsVersion: String = BASE_VERSION) =
+        this.apply { this.settings = settingsVersion }
 
-    fun clientApi(version: String = "1.0.+") = apply { clientApi = version }
+    fun clientApi(clientApiVersion: String = BASE_VERSION) =
+        this.apply { this.clientApi = clientApiVersion }
 
-    fun loader(version: String = "1.0.+") = apply { loader = version }
+    fun loader(loaderVersion: String = BASE_VERSION) =
+        this.apply { this.loader = loaderVersion }
 }
 
 enum class EventsImplementation(val id: String) {

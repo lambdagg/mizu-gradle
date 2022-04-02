@@ -6,17 +6,23 @@ import org.gradle.api.plugins.JavaPlugin
 import java.net.URI
 
 fun Project.repository(name: String, url: String) {
-    repositories.maven { r ->
-        r.name = name
-        r.url  = URI(url)
+    repositories.maven { repo ->
+        repo.name = name
+        repo.url = URI(url)
     }
 }
 
-fun Project.repository(name: String, url: String, user: String, password: String) {
-    repositories.maven { r ->
-        r.name = name
-        r.url  = URI(url)
-        r.credentials {
+fun Project.repository(
+    name: String,
+    url: String,
+    user: String,
+    password: String
+) {
+    repositories.maven { repo ->
+        repo.name = name
+        repo.url = URI(url)
+
+        repo.credentials {
             it.username = user
             it.password = password
         }
@@ -29,7 +35,7 @@ fun Project.dependsOn(
     version: String,
     configuration: String = JavaPlugin.IMPLEMENTATION_CONFIGURATION_NAME
 ) {
-    logger.info(id)
+    // logger.info(id)
     val domainObjectProvider = this.configurations.register(id) {
         it.setVisible(true).defaultDependencies { deps ->
             deps.add(dependencies.create("$group:$id:$version"))
@@ -39,6 +45,6 @@ fun Project.dependsOn(
     project.plugins.withType(JavaLibraryPlugin::class.java) { _ ->
         // Adds the library as a dependency
         project.configurations.named(configuration)
-            .configure { c -> c.extendsFrom(domainObjectProvider.get()) }
+            .configure { it.extendsFrom(domainObjectProvider.get()) }
     }
 }
