@@ -3,11 +3,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.jetbrains.kotlin.jvm") version Version.Plugin.KOTLIN
     id("org.ajoberstar.grgit") version Version.Plugin.GRGIT
-    id("java-gradle-plugin")
+    `java-gradle-plugin`
     `maven-publish`
 }
 
-group   = Project.GROUP
+group = Project.GROUP
 version = Project.VERSION.replace("x", grgit.log().size.toString())
 
 repositories {
@@ -24,20 +24,19 @@ gradlePlugin {
 }
 
 tasks.withType<KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "16"
+    kotlinOptions.jvmTarget = "17"
 }
 
-publishing {
-    println(version)
-    repositories {
-        maven("https://maven.mizu.wtf/releases") {
-            name = "mizu"
-            if(properties.containsKey("MIZU_USERNAME") && properties.containsKey("MIZU_TOKEN")) {
-                credentials {
-                    username = project.properties["MIZU_USERNAME"] as String
-                    password = project.properties["MIZU_TOKEN"] as String
-                }
-            }
+publishing.repositories {
+    maven("https://maven.mizu.wtf/releases") {
+        name = "mizu"
+
+        credentials {
+            username = project.properties["MIZU_USERNAME"] as? String
+                ?: return@credentials
+
+            password = project.properties["MIZU_TOKEN"] as? String
+                ?: return@credentials
         }
     }
 }

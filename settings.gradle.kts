@@ -1,4 +1,5 @@
 rootProject.name = "gradle-plugin"
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -6,4 +7,4 @@ pluginManagement {
     }
 }
 
-include("example")
+// include("example") ???
